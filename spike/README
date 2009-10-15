@@ -1,0 +1,3 @@
+The spike directory contains all our 'spike' tests, that is all the code that we create to discover a new area (DHT, DTLS, Twisted, ...)
+So that everybody in the team can see and share his own discoveries.
+

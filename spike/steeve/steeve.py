@@ -6,7 +6,7 @@ from entangled.kademlia.datastore import *
 from entangled.kademlia.routingtable import *
 from entangled.kademlia.contact import *
 from entangled.kademlia.protocol import *
-import time
+import time, hashlib
 
 
 # INFOS SUR LES CLASSES
@@ -65,13 +65,17 @@ def main():
     myNode.removeContact('contact111')                           # remove inefficace 
     print " - affichage des contacts du noeud"
     myNode.printContacts()		# on peut voir que la suppression du contact : contact111 n'a pas fonctionné
-
+    
     print " - recherche du contact : contact111"
     print myNode.findContact('contact111')					# retourne un Deferred cf Twisted, pk ???
     print " - recherche du noeud : contact222"			### ????? QU'EST CE QU'IL RETOURNE ??????????????????????  
     print myNode.findNode('contact222')
     print " - stockage de datas"
     myNode.store('datakey1', 'datavalue1', myId)
+    h = hashlib.sha1()
+    h.update('datakey1111')
+    mkey=h.digest()
+    #myNode.iterativeStore(mkey, 'datavalue1111')
     myNode.store('datakey2', 'datavalue2', myId)
     myNode.store('datakey3', 'datavalue3', myId)
     print "recherche de datas : datakey1"
@@ -104,9 +108,9 @@ def main():
     yourNode.addContact(yourSecondContact)
     yourNode.printContacts()"""
 
-    a = [('127.0.0.1', 6666)]
+    a = [('127.0.0.1', 6666)]	# port source : 8600
     myNode.joinNetwork(a)			# pour se connecter au noeud 127.0.0.1 port UDP 6666
-    #twisted.internet.reactor.run()
+    twisted.internet.reactor.run()
     
     # exemple quand on utilise un table de routage existante (erreur car dans __init__ il n'initialise pas cette table, il le fait seulement lorsque qu'on laisse None comme RootingTable)
     #myNode2 = Node(8602, myDataStore, myTreeRoutingTable, None)

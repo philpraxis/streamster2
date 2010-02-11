@@ -1,0 +1,101 @@
+kademlia
+	contact.py
+		class Contact
+			-> contient les informations sur un contact distant, et API RPC pour l'hôte distant
+			
+	datastore.py
+		class [Dict|SQLite]Datastore
+			-> stockage "physique" des données publiées par un "STORE"
+			setItem()
+			
+	encoding.py
+		class Encoding
+			-> implémentation de l'algorithme d'encodage utilisé par BitTorrent
+	
+	 kbucket.py
+		class KBucket
+			addContact()
+			getContact()
+			getContacts()
+			removeContact()
+			
+	msgformat.py
+		-> formats des messages RPC
+		
+	msgtypes.py
+		-> types des messages RPC (request/response/error)
+		
+	node.py
+		class Node	(classe principale d'entangled / toutes les interactions avec le réseau Kademlia doivent passer par cette classe)
+			-> le paramêtre udpPort correspond au port source (normalement)
+			-> noeud local du réseau kademlia
+			joinNetwork()
+				-> permet au noeud de rejoindre le réseau Kademlia / doit être appelé avant tout autre opération DHT
+			printContacts()
+			iterativeStore()
+				-> stocker/republier des données dans la DHT
+			iterativeFindNode()
+				-> pour rechercher un noeud distant sur le réseau kademlia
+			iterativeFindValue()
+				-> pour rechercher des données dans la DHT
+			addContact()
+				-> wrapper de la methode de l'objet RoutingTable
+			removeContact()
+				-> wrapper de la methode de l'objet RoutingTable
+			findContact()
+				-> rechercher un objet "contact"
+			store()
+			findNode()
+			findValue()
+			
+	protocol.py
+		class KademliaProtocol
+			sendRPC()
+				-> envoyer un RPC à un contact
+			datagramReceived()
+			
+	routingtable.py
+		class [[Optimized]Tree]RoutingTable
+			-> implémentation de la table de routage utilisée par la classe Node
+			addContact()
+			findCloseNode()
+			getContact()
+			getRefreshList()
+			removeContact()	
+			touchKBucket()
+				
+				
+				
+				
+				
+				
+				
+				
+				
+create_network.py nombre_de_noeuds addr_ip (pour que les autres noeuds s'y connecte)
+- start un serveur puis start un certain nbre de clients ???? (appel de Entangled/node.py)
+	|-> appel de node.py local_port
+	|-> puis x fois : node.py local_port known_node_ip known_node_port
+
+
+node.py UDP_PORT  [KNOWN_NODE_IP  KNOWN_NODE_PORT]
+- création d'un datastore (SQLiteDataStore)		dataStore = SQLiteDataStore(dbFile = '/tmp/dbFile%s.db' % sys.argv[1])
+- création d'un noeud (EntangledNode) 			node = EntangledNode( udpPort=int(sys.argv[1]), dataStore=dataStore )
+	[EntangledNode est un noeud "Kademlia" avec quelques RPC (non standart) supplémentaires]
+- on rejoint le réseau Kademlia 				node.joinNetwork(knownNodes) // knownNodes = [KNOWN_NODE_IP, KNOWN_NODE_PORT]
+- twisted.internet.reactor.run()
+
+gui.py UDP_PORT  [KNOWN_NODE_IP  KNOWN_NODE_PORT]	// créer un autre noeud (mais avec un GUI pour tester le réseau DHT)
+- création d'un DistributedTupleSpacePeer (qui hérite de EntangledNode)		[situé dans dtuple.py]
+	[on lui précise seulement le port source]
+- node.joinNetwork(knownNodes)
+- twisted.internet.reactor.run()
+
+
+
+
+
+
+
+
+

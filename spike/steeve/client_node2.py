@@ -14,16 +14,16 @@ def printData(d):
 
 def main():
     myNode = Node(8602, None, None, None)
-    a = [('127.0.0.1', 4000)]
+    a = [('127.0.0.1', 8600)]
     myNode.joinNetwork(a)
 
-    myNode.iterativeStore('datakey2', 'datavalue2')
-    print "recherche de datas : "
+    #myNode.iterativeStore('datakey2', 'datavalue2')
+    #print "recherche de datas : "
 
-    print myNode.iterativeFindValue('datakey1').addCallback(printData)
-    print myNode.iterativeFindValue('datakey2').addCallback(printData)
-    print myNode.iterativeFindValue('datakey3').addCallback(printData)
-    myNode.printContacts()
+    #print myNode.iterativeFindValue('datakey1').addCallback(printData)
+    #print myNode.iterativeFindValue('datakey2').addCallback(printData)
+    #print myNode.iterativeFindValue('datakey3').addCallback(printData)
+    #myNode.printContacts()
 
     twisted.internet.reactor.run()
 

@@ -14,7 +14,9 @@ def main():
     myNode = Node(8601, None, None, None)
     a = [('127.0.0.1', 8600)]
     myNode.joinNetwork(a)
-    myNode.iterativeStore('datakey1', 'datavalue1')
+
+
+    #myNode.iterativeStore('datakey1', 'datavalue1')
 
     twisted.internet.reactor.run()
 

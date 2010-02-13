@@ -73,7 +73,7 @@ kademlia
 				
 				
 create_network.py nombre_de_noeuds addr_ip (pour que les autres noeuds s'y connecte)
-- start un serveur puis start un certain nbre de clients ???? (appel de Entangled/node.py)
+- start un certain nombre de noeuds (appel de Entangled/node.py)
 	|-> appel de node.py local_port
 	|-> puis x fois : node.py local_port known_node_ip known_node_port
 
